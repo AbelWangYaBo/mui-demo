@@ -2,11 +2,33 @@ import { useState } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
+import {
+  createBrowserRouter,
+  BrowserRouter,
+  Routes,
+  Route,
+  RouterProvider,
+} from "react-router-dom";
+import React from "react";
+import Index from "@/pages/index/index";
 
 import { SnackbarProvider, useSnackbar, enqueueSnackbar } from "notistack";
 
 function App() {
   const [count, setCount] = useState(0);
+
+  const routes = createBrowserRouter([
+    {
+      path: "/",
+      // element: <Index></Index>,
+      Component: React.lazy(() => import("./pages/index/index")),
+    },
+    {
+      path: "/login",
+      // element: <Index></Index>,
+      Component: React.lazy(() => import("./pages/login/index")),
+    },
+  ]);
 
   const showNotice = () => {
     const date: string = new Date().toDateString();
@@ -30,9 +52,11 @@ function App() {
 
   return (
     <>
-      <button onClick={showNotice}>anniu</button>
-      <SnackbarProvider maxSnack={4}></SnackbarProvider>
-      <div>
+      <SnackbarProvider maxSnack={4} autoHideDuration={300}></SnackbarProvider>
+      <React.Suspense fallback={<div>Loading...</div>}>
+        <RouterProvider router={routes}></RouterProvider>
+      </React.Suspense>
+      {/* <div>
         <a href="https://vitejs.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
         </a>
@@ -51,7 +75,7 @@ function App() {
       </div>
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
-      </p>
+      </p> */}
     </>
   );
 }
