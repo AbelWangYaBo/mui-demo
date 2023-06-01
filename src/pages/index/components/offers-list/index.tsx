@@ -32,7 +32,9 @@ const Offers = () => {
 
   return (
     <>
-      <h2>Offers</h2>
+      <Typography component="h2" sx={{ my: 2, fontWeight: 600, fontSize: 24 }}>
+        Offers
+      </Typography>
       <Grid container spacing={2}>
         {list.map((item, i) => (
           <Grid xs={12} sm={12} md={6} xl={3} key={i}>

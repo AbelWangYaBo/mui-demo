@@ -3,7 +3,8 @@ import { Route, Router } from "react-router-dom";
 
 const App = (props) => {
   const params = useParams();
-  console.log("sus", props.location, params);
+  // const location = useLocation();
+  console.log("sus", location, params);
   return <h1>Loading...</h1>;
 };
 

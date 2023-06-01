@@ -47,6 +47,7 @@ import { breadcrumbsState } from "@/store/breadcrumbs";
 import BreadCrumb from "./breadcrumb";
 import { useLocation, useNavigate } from "react-router-dom";
 import ChangePwd from "@/components/change-pwd";
+import LoadingMask from "@/components/loading-mask";
 
 const drawerWidth = 300;
 
@@ -130,11 +131,14 @@ export default function PersistentDrawerLeft() {
 
   const location = useLocation();
   const navigate = useNavigate();
+  const [isLogin, setIsLogin] = React.useState(false);
   React.useEffect(() => {
     if (location.pathname !== "login" && !localStorage.getItem("TOKEN")) {
       navigate("/login", {
         replace: true,
       });
+    } else {
+      setIsLogin(true);
     }
   }, [location]);
 
@@ -150,6 +154,10 @@ export default function PersistentDrawerLeft() {
     //
     setShowChangePwd(true);
   };
+
+  if (!isLogin) {
+    return <LoadingMask />;
+  }
 
   return (
     <Box sx={{ display: "flex" }}>

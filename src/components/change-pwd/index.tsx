@@ -15,6 +15,7 @@ import {
   IconButton,
   Button,
   Backdrop,
+  CircularProgress,
 } from "@mui/material";
 import { useFormik } from "formik";
 import { useState } from "react";
@@ -25,8 +26,6 @@ import { SnackbarProvider, enqueueSnackbar } from "notistack";
 import { submit } from "./mock";
 
 const Index = ({ open, onClose }: { open: boolean; onClose: () => void }) => {
-  const [loading, setLoading] = useState(false);
-
   const formik = useFormik({
     initialValues: {
       oldPassword: "",
@@ -47,15 +46,29 @@ const Index = ({ open, onClose }: { open: boolean; onClose: () => void }) => {
         const { password, password2, oldPassword } = values;
         await submit({ password, password2, oldPassword });
 
-        enqueueSnackbar("Password has changed");
+        enqueueSnackbar({
+          message: "Password has changed",
+          variant: "success",
+          anchorOrigin: {
+            vertical: "top",
+            horizontal: "center",
+          },
+        });
 
+        handleClose();
         return;
       } catch (err) {
-        console.log("err", err);
-        setLoading(false);
         helpers.setStatus({ success: false });
-        helpers.setErrors({ submit: err.message });
+        helpers.setErrors({ submit: err?.message });
         helpers.setSubmitting(false);
+        enqueueSnackbar({
+          message: err?.message || "Error",
+          variant: "error",
+          anchorOrigin: {
+            vertical: "top",
+            horizontal: "center",
+          },
+        });
       }
     },
   });
@@ -69,6 +82,10 @@ const Index = ({ open, onClose }: { open: boolean; onClose: () => void }) => {
 
   const handleCancel = () => {
     //
+    handleClose();
+  };
+
+  const handleClose = () => {
     formik.resetForm();
     onClose();
   };
@@ -191,10 +208,13 @@ const Index = ({ open, onClose }: { open: boolean; onClose: () => void }) => {
             Cancel
           </Button>
         </DialogActions>
-
-        <Backdrop open={formik.isSubmitting}></Backdrop>
+        <Backdrop
+          open={formik.isSubmitting}
+          sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        >
+          <CircularProgress color="inherit" />
+        </Backdrop>
       </Dialog>
-      <SnackbarProvider />
     </>
   );
 };

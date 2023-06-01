@@ -11,6 +11,6 @@ export function submit({ oldPassword, password, password2 }:
           message: 'Test: mock errors.'
         })
       }
-    }, 8000)
+    }, 800)
   })
 }
