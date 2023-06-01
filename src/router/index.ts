@@ -1,9 +1,7 @@
 import * as React from 'react'
-import { RouteObject, RouteProps, RouterProps } from 'react-router'
-import Layout from '@/layouts/index'
+import { RouteObject } from 'react-router'
 
 const routes: RouteObject[] = [
-
   {
     path: '/login',
     Component: React.lazy(() => import('@/pages/login/index')),
@@ -51,8 +49,6 @@ const routes: RouteObject[] = [
     // hidden: true
   },
 ]
-
-console.log(111111)
 
 export {
   routes,

@@ -1,7 +1,6 @@
-import { useParams, useLocation } from "react-router";
-import { Route, Router } from "react-router-dom";
+import { useParams } from "react-router";
 
-const App = (props) => {
+const App = () => {
   const params = useParams();
   // const location = useLocation();
   console.log("sus", location, params);

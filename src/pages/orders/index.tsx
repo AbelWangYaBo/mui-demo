@@ -2,16 +2,12 @@ import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import Alert from "@mui/material/Alert";
-import Autocomplete from "@mui/material/Autocomplete";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import { useFormik } from "formik";
-import { useNavigate } from "react-router";
 import * as Yup from "yup";
-import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import TableList from "@/components/table-list";
 import { getList } from "./mock";
@@ -49,6 +45,9 @@ const QueryForm = ({
   loading: boolean;
   handleSearch: (val: AnyObject) => void;
 }) => {
+  {
+    loading;
+  }
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -57,14 +56,14 @@ const QueryForm = ({
       submit: null,
     },
     validationSchema: Yup.object({}),
-    onSubmit: async (values, helper) => {
+    onSubmit: async (values, helpers) => {
       try {
         const { name, tollCenter } = values;
         handleSearch({ name, tollCenter });
         return;
-      } catch (err) {
+      } catch (err: any) {
         helpers.setStatus({ success: false });
-        helpers.setErrors({ submit: err.message });
+        helpers.setErrors({ submit: err?.message });
         helpers.setSubmitting(false);
       }
     },
@@ -167,13 +166,14 @@ const Products = () => {
   const getDatas = async (query?: AnyObject) => {
     setLoading(true);
     const resp = await getList({ ...query });
-    setRows(resp.rows);
-    setTotal(resp.total);
+    setRows(resp?.rows);
+    setTotal(resp?.total);
     setLoading(false);
   };
 
   const [page, setPage] = useState(1);
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
+    event;
     setPage(value);
     setQueryParams({ ...queryParams, pageNum: value });
     getDatas({ ...queryParams, pageNum: value });

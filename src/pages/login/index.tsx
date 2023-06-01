@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+// import { useCallback, useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import {
@@ -6,21 +6,19 @@ import {
   Box,
   Button,
   FormHelperText,
-  Link,
   Stack,
-  Tab,
-  Tabs,
   TextField,
   Typography,
 } from "@mui/material";
-import { useLocation, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 import CircularProgress from "@mui/material/CircularProgress";
-import { LoadingButton } from "@mui/lab";
-import SaveIcon from "@mui/icons-material/Save";
 import { enqueueSnackbar } from "notistack";
 
 const auth = {
   signIn(userCode: string, password: string) {
+    {
+      userCode, password;
+    }
     return new Promise((res) => {
       setTimeout(() => {
         res(true);
@@ -34,8 +32,6 @@ const auth = {
 
 const Page = () => {
   const navigate = useNavigate();
-  const location = useLocation();
-  const [method, setMethod] = useState("userCode");
   const formik = useFormik({
     initialValues: {
       userCode: "mmioms",
@@ -48,7 +44,6 @@ const Page = () => {
     }),
     onSubmit: async (values, helpers) => {
       try {
-        setLoging(true);
         await auth.signIn(values.userCode, values.password);
         localStorage.setItem("TOKEN", "MMIOMS");
         navigate("/", {
@@ -64,7 +59,6 @@ const Page = () => {
         });
         return;
       } catch (err) {
-        setLoging(false);
         helpers.setStatus({ success: false });
         helpers.setErrors({ submit: err.message });
         helpers.setSubmitting(false);
@@ -72,19 +66,13 @@ const Page = () => {
     },
   });
 
-  const [loging, setLoging] = useState(false);
-
-  const handleMethodChange = useCallback((event, value) => {
-    setMethod(value);
-  }, []);
-
-  const handleSkip = useCallback(() => {
-    auth.skip();
-    navigate("/", {
-      replace: true,
-    });
-    return;
-  }, [auth, location]);
+  // const handleSkip = useCallback(() => {
+  //   auth.skip();
+  //   navigate("/", {
+  //     replace: true,
+  //   });
+  //   return;
+  // }, [auth, location]);
 
   return (
     <>
@@ -162,9 +150,13 @@ const Page = () => {
                 sx={{ mt: 3 }}
                 type="submit"
                 variant="contained"
-                disabled={loging}
+                disabled={formik.isSubmitting}
                 startIcon={
-                  loging ? <CircularProgress size={16} color="inherit" /> : ""
+                  formik.isSubmitting ? (
+                    <CircularProgress size={16} color="inherit" />
+                  ) : (
+                    ""
+                  )
                 }
               >
                 Continue

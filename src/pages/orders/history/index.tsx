@@ -7,9 +7,7 @@ import InputLabel from "@mui/material/InputLabel";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import { useFormik } from "formik";
-import { useNavigate } from "react-router";
 import * as Yup from "yup";
-import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import TableList from "@/components/table-list";
 import { getList } from "./mock";
@@ -47,6 +45,9 @@ const QueryForm = ({
   loading: boolean;
   handleSearch: (val: AnyObject) => void;
 }) => {
+  {
+    loading;
+  }
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -60,9 +61,9 @@ const QueryForm = ({
         const { name, tollCenter } = values;
         handleSearch({ name, tollCenter });
         return;
-      } catch (err) {
+      } catch (err: any) {
         helpers.setStatus({ success: false });
-        helpers.setErrors({ submit: err.message });
+        helpers.setErrors({ submit: err?.message });
         helpers.setSubmitting(false);
       }
     },
@@ -171,7 +172,9 @@ const Index = () => {
   };
 
   const [page, setPage] = useState(1);
+  // @ts-ignore
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
+    // event
     setPage(value);
     setQueryParams({ ...queryParams, pageNum: value });
     getDatas({ ...queryParams, pageNum: value });

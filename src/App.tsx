@@ -1,10 +1,6 @@
-import { useEffect } from "react";
-import { useLocation, useRoutes } from "react-router";
-
 import * as React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { routes } from "./router";
-import AuthProvider from "./AuthProvider";
 import { RecoilRoot } from "recoil";
 import LoadingMask from "@/components/loading-mask/index";
 import "./global.less";
@@ -30,13 +26,11 @@ function App() {
 
   return (
     <RecoilRoot>
-      <AuthProvider>
-        <React.Suspense fallback={<LoadingMask />}>
-          <ThemeProvider theme={theme}>
-            <RouterProvider router={router} fallbackElement={<LoadingMask />} />
-          </ThemeProvider>
-        </React.Suspense>
-      </AuthProvider>
+      <React.Suspense fallback={<LoadingMask />}>
+        <ThemeProvider theme={theme}>
+          <RouterProvider router={router} fallbackElement={<LoadingMask />} />
+        </ThemeProvider>
+      </React.Suspense>
       <SnackbarProvider
         anchorOrigin={{
           vertical: "top",

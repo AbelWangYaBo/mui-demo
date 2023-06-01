@@ -312,7 +312,10 @@ const ProductWiseTollCenterList = [
 ]
 
 
-export const getList = (query?: AnyObject) => {
+export const getList = (query?: AnyObject): Promise<{
+  rows: any[],
+  total: number
+}> => {
   let data: AnyObject[] = [];
   ProductWiseTollCenterList.forEach((d, i) => {
     const ind = Math.floor(i / 2);
