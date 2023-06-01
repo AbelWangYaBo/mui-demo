@@ -8,7 +8,9 @@ import { SnackbarProvider } from "notistack";
 
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
-const router = createBrowserRouter(routes);
+const router = createBrowserRouter(routes, {
+  basename: "/mui-demo/",
+});
 
 const theme = createTheme({
   palette: {
