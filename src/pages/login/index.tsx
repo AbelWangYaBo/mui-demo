@@ -79,7 +79,7 @@ const Page = () => {
       <Box
         sx={{
           backgroundColor: "#fff",
-          backgroundImage: "url(/Mkgaa800x600.png)",
+          backgroundImage: "url(/mui-demo/Mkgaa800x600.png)",
           flex: "1 1 auto",
           alignItems: "center",
           display: "flex",
