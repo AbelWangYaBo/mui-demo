@@ -14,4 +14,5 @@ export default defineConfig({
       '@': _resolve('src'),
     },
   },
+  base: '/mui-demo/'
 })
