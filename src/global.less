@@ -1,0 +1,67 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.h100 {
+  height: 100vh;
+}
+.mh100 {
+  min-height: 100vh;
+}
+
+
+.mp(@i) when(@i <=20) {
+  .m@{i},
+  .my@{i},
+  .mt@{i} {
+    margin-top: @i + 0px;
+  }
+
+  .m@{i},
+  .mx@{i},
+  .mr@{i} {
+    margin-right: @i + 0px;
+  }
+
+  .m@{i},
+  .my@{i},
+  .mb@{i} {
+    margin-bottom: @i + 0px;
+  }
+
+  .m@{i},
+  .mx@{i},
+  .ml@{i} {
+    margin-left: @i + 0px;
+  }
+
+  .p@{i},
+  .py@{i},
+  .pt@{i} {
+    padding-top: @i + 0px;
+  }
+
+  .p@{i},
+  .px@{i},
+  .pr@{i} {
+    padding-right: @i + 0px;
+  }
+
+  .p@{i},
+  .py@{i},
+  .pb@{i} {
+    padding-bottom: @i + 0px;
+  }
+
+  .p@{i},
+  .px@{i},
+  .pl@{i} {
+    padding-left: @i + 0px;
+  }
+
+  .mp((@i + 5));
+}
+
+.mp(0);
