@@ -37,7 +37,13 @@ function App() {
           </ThemeProvider>
         </React.Suspense>
       </AuthProvider>
-      <SnackbarProvider />
+      <SnackbarProvider
+        anchorOrigin={{
+          vertical: "top",
+          horizontal: "center",
+        }}
+        autoHideDuration={3000}
+      />
     </RecoilRoot>
   );
 }

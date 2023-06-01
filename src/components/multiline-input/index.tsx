@@ -15,27 +15,7 @@ const CustomInput = React.forwardRef(function CustomInput(
     />
   );
 });
-
-export default function InputMultiline({
-  placeholder,
-  value,
-}: {
-  placeholder?: string;
-  value: string;
-}) {
-  const handleOnChange = (event) => {
-    console.log(event.target.value);
-  };
-  return (
-    <CustomInput
-      aria-label="Multiline Input"
-      multiline
-      placeholder={placeholder}
-      value={value}
-      onChange={handleOnChange}
-    />
-  );
-}
+export default CustomInput;
 
 const blue = {
   100: "#DAECFF",

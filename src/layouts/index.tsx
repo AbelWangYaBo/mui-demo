@@ -48,6 +48,7 @@ import BreadCrumb from "./breadcrumb";
 import { useLocation, useNavigate } from "react-router-dom";
 import ChangePwd from "@/components/change-pwd";
 import LoadingMask from "@/components/loading-mask";
+import { enqueueSnackbar } from "notistack";
 
 const drawerWidth = 300;
 
@@ -147,6 +148,15 @@ export default function PersistentDrawerLeft() {
     navigate("/login", {
       replace: true,
     });
+
+    enqueueSnackbar({
+      message: "Log out",
+      variant: "success",
+      anchorOrigin: {
+        vertical: "top",
+        horizontal: "center",
+      },
+    });
   };
 
   const [showChangePwd, setShowChangePwd] = React.useState(false);
@@ -210,7 +220,7 @@ export default function PersistentDrawerLeft() {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
               >
-                <MenuItem onClick={handleClose}>Profile</MenuItem>
+                {/* <MenuItem onClick={handleClose}>Profile</MenuItem> */}
                 <MenuItem onClick={handleChangePwd}>Change Password</MenuItem>
                 <MenuItem onClick={handleLogout}>Log out</MenuItem>
               </Menu>

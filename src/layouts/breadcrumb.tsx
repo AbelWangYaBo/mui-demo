@@ -12,6 +12,7 @@ const BreadCrumb = () => {
 
   const location = useLocation();
   useEffect(() => {
+    document.title = "MMIOMS";
     switch (location.pathname) {
       case "/masters/products":
         setBreadcrumbs([

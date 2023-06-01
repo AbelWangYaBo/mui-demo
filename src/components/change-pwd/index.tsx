@@ -21,7 +21,7 @@ import { useFormik } from "formik";
 import { useState } from "react";
 import * as Yup from "yup";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { SnackbarProvider, enqueueSnackbar } from "notistack";
+import { enqueueSnackbar } from "notistack";
 
 import { submit } from "./mock";
 

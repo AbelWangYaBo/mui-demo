@@ -18,8 +18,12 @@ import Grid from "@mui/material/Unstable_Grid2";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import TextField from "@mui/material/TextField";
 import TextareaAutosize from "@mui/base/TextareaAutosize";
-import Input from "@mui/material/Input";
+// import Input from "@mui/material/Input";
 import MultilineInput from "@/components/multiline-input";
+import Input from "@mui/base/Input";
+import Checkbox from "@mui/material/Checkbox";
+
+import { useFormik } from "formik";
 
 const App = ({
   webOrderNo,
@@ -38,6 +42,25 @@ const App = ({
   const [scroll, setScroll] = useState<DialogProps["scroll"]>("paper");
   const [loading, setLoading] = useState(false);
   const [data, setDate] = useState<AnyObject>({});
+
+  const formik = useFormik({
+    initialValues: {
+      shippingInstructions: "PO No : sdfsdgdf\r\n62B6PO No : 33234324324",
+      tax: "62B6",
+      complDelyIndicator: false,
+      statutoryDocument: true,
+    },
+    onSubmit: async (values, helpers) => {
+      try {
+        console.log("submit");
+        return;
+      } catch (err) {
+        helpers.setStatus({ success: false });
+        helpers.setErrors({ submit: err?.message });
+        helpers.setSubmitting(false);
+      }
+    },
+  });
 
   const getData = async () => {
     if (!webOrderNo) {
@@ -92,64 +115,84 @@ const App = ({
               <Grid xs={6} md={2} lg={1}>
                 Deliv. Date
               </Grid>
-              <Grid xs={6} md={4} lg={2}>
+              <Grid xs={6} md={4} lg={3}>
                 05-Aug-2022
               </Grid>
               <Grid xs={6} md={2} lg={1}>
                 Date
               </Grid>
-              <Grid xs={6} md={4} lg={2}>
+              <Grid xs={6} md={4} lg={3}>
                 PO 05-Aug-2022 Rcvd. 05-Aug-2022
               </Grid>
               <Grid xs={6} md={2} lg={1}>
                 Ship To
               </Grid>
-              <Grid xs={6} md={4} lg={2}>
+              <Grid xs={6} md={4} lg={3}>
                 N. Sunderlal & Co. (Anish) - Navi Mumbai [0006233732] -
               </Grid>
 
               <Grid xs={6} md={2} lg={1}>
                 Bill To
               </Grid>
-              <Grid xs={6} md={4} lg={2}>
+              <Grid xs={6} md={4} lg={3}>
                 N Sunderlal & Company - Mumbai [0006201603]
               </Grid>
 
               <Grid xs={6} md={2} lg={1}>
                 Payer
               </Grid>
-              <Grid xs={6} md={4} lg={2}>
+              <Grid xs={6} md={4} lg={3}>
                 N Sunderlal & Company - Mumbai [0006201603]
               </Grid>
 
               <Grid xs={6} md={2} lg={1}>
                 Shipping Instructions
               </Grid>
-              <Grid xs={6} md={4} lg={2}>
+              <Grid xs={6} md={4} lg={3}>
                 <MultilineInput
-                  value={`PO No : sdfsdgdf\r\n62B6PO No : 33234324324`}
+                  name="shippingInstructions"
+                  value={formik.values.shippingInstructions}
+                  onChange={formik.handleChange}
+                  multiline
+                  readOnly
+                  disabled
                 ></MultilineInput>
               </Grid>
 
-              <Grid xs={6} md={2} lg={1}></Grid>
-              <Grid xs={6} md={4} lg={2}></Grid>
+              <Grid xs={6} md={2} lg={1}>
+                Change Default Plant / Tax
+              </Grid>
+              <Grid xs={6} md={4} lg={3}>
+                <MultilineInput value={formik.values.tax} disabled />
+              </Grid>
+
+              <Grid xs={6} md={3} lg={2}>
+                Compl. Dely. Indicator
+                <Checkbox value={formik.values.complDelyIndicator} />
+              </Grid>
+              <Grid xs={6} md={3} lg={2}>
+                Statutory Document
+                <Checkbox value={formik.values.statutoryDocument} />
+              </Grid>
 
               <Grid xs={6} md={2} lg={1}></Grid>
-              <Grid xs={6} md={4} lg={2}></Grid>
+              <Grid xs={6} md={4} lg={3}></Grid>
 
               <Grid xs={6} md={2} lg={1}></Grid>
-              <Grid xs={6} md={4} lg={2}></Grid>
+              <Grid xs={6} md={4} lg={3}></Grid>
 
               <Grid xs={6} md={2} lg={1}></Grid>
-              <Grid xs={6} md={4} lg={2}></Grid>
+              <Grid xs={6} md={4} lg={3}></Grid>
 
               <Grid xs={6} md={2} lg={1}></Grid>
-              <Grid xs={6} md={4} lg={2}></Grid>
-
-              <Grid xs={6} md={2} lg={1}></Grid>
-              <Grid xs={6} md={4} lg={2}></Grid>
+              <Grid xs={6} md={4} lg={3}></Grid>
             </Grid>
           </DialogContent>
+          <DialogActions>
+            <Button type="button" onClick={onClose}>
+              Back
+            </Button>
+          </DialogActions>
         </Dialog>
       )}
     </div>

@@ -17,6 +17,7 @@ import { useLocation, useNavigate } from "react-router";
 import CircularProgress from "@mui/material/CircularProgress";
 import { LoadingButton } from "@mui/lab";
 import SaveIcon from "@mui/icons-material/Save";
+import { enqueueSnackbar } from "notistack";
 
 const auth = {
   signIn(userCode: string, password: string) {
@@ -52,6 +53,14 @@ const Page = () => {
         localStorage.setItem("TOKEN", "MMIOMS");
         navigate("/", {
           replace: true,
+        });
+        enqueueSnackbar({
+          message: "Login Success",
+          variant: "success",
+          anchorOrigin: {
+            vertical: "top",
+            horizontal: "center",
+          },
         });
         return;
       } catch (err) {
@@ -173,8 +182,5 @@ const Page = () => {
   );
 };
 
-// Page.getLayout = (page) => {
-//   page;
-// };
 document.title = "Login";
 export default Page;

@@ -178,11 +178,11 @@ const App = () => {
           name: "Pending For My Approval",
           icon: <ApprovalIcon />,
         },
-        {
-          path: "/orders/history",
-          name: "Order History",
-          icon: <TimelineIcon />,
-        },
+        // {
+        //   path: "/orders/history",
+        //   name: "Order History",
+        //   icon: <TimelineIcon />,
+        // },
       ],
     },
     {
